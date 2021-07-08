@@ -8,7 +8,7 @@ const path = require('path')
 
 //app config
 const app = express()
-const PORT =  process.env.port || 8000;
+const PORT =  process.env.PORT || 8000;
 
 // app middlewares
 app.use(express.json())
