@@ -34,16 +34,12 @@ app.get("/",(req,res) =>
 
 app.post("/webp/post/",(req,res) => {
     const data = req.body
-    download(data.url,data.filename + ".jpg", function(){
-    console.log('done');
+    download(data.url, data.filename + '.jpg', function(){
     sharp(`images/other/${data.filename}.jpg`).resize(data.height, data.width)
-    .jpeg({quality : 80}).toFile( `images/webp/${data.filename}.webp`);
-});  
-
-//  res.status(201).sendFile(`${dir}/webp/${data.filename}.webp`)
- res.sendFile(data.filename + ".webp", { root: path.join(__dirname, './images/webp/') });
-// res.status(201).send("Hello")
-
+    .jpeg({quality : 80}).toFile( `images/webp/${data.filename}.webp`)
+    .then(() => res.status(201).sendFile(data.filename + ".webp", { root: path.join(__dirname, './images/webp/') }))
 })
+})
+
 //app listeners
 app.listen(PORT, () => console.log(`listening on localhost:${PORT}`));
